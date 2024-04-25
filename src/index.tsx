@@ -18,7 +18,7 @@ app.get('*', (c) => {
             </>
           ) : (
             <>
-              <script type="module" src="/src/client.tsx"></script>
+              <script type="module" src="/src/client/main.tsx"></script>
             </>
           )}
         </head>
