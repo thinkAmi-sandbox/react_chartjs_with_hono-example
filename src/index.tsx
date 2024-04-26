@@ -1,8 +1,29 @@
 // import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-import {renderToReadableStream, renderToString} from "react-dom/server"
+import {Hono} from 'hono'
+import {renderToString} from "react-dom/server"
 
 const app = new Hono()
+
+const appleRoute = app.get('/api/apples', (c) => {
+  return c.json({
+    labels: ['奥州ロマン', 'シナノゴールド', 'ピンクレディ', 'ブラムリー'],
+    datasets: [
+      {
+        label: '購入数',
+        data: [1, 5, 3, 2],
+        backgroundColor: [
+          'firebrick', 'gold', 'pink', 'mediumseagreen'
+        ],
+        borderColor: [
+          'firebrick', 'gold', 'pink', 'mediumseagreen'
+        ],
+        borderWidth: 1
+      }
+    ]
+  })
+})
+
+export type ApplesType = typeof appleRoute
 
 app.get('*', (c) => {
   return c.html(

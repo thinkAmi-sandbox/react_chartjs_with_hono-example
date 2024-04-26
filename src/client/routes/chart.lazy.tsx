@@ -1,28 +1,33 @@
-import {createLazyRoute, Link} from "@tanstack/react-router";
+import {createLazyRoute, Link} from "@tanstack/react-router"
 import * as React from "react"
-import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js'
+import {useEffect, useState} from "react"
+import {ArcElement, Chart as ChartJS, ChartData, Legend, Tooltip} from 'chart.js'
 import {Pie} from 'react-chartjs-2'
+import {ApplesType} from "../../index"
+import {hc} from 'hono/client'
 
+type MyChart = ChartData<"pie", number[], unknown>
+const client = hc<ApplesType>('http://localhost:5173')
 
 const ChartComponent = () => {
   ChartJS.register(ArcElement, Tooltip, Legend)
 
-  const data = {
-    labels: ['奥州ロマン', 'シナノゴールド', 'ピンクレディ', 'ブラムリー'],
-    datasets: [
-      {
-        label: '購入数',
-        data: [1, 5, 3, 2],
-        backgroundColor: [
-          'firebrick', 'gold', 'pink', 'mediumseagreen'
-        ],
-        borderColor: [
-          'firebrick', 'gold', 'pink', 'mediumseagreen'
-        ],
-        borderWidth: 1
+  const [data, setData] = useState<MyChart>()
+
+  useEffect(() => {
+    const fetchApples = async () => {
+      const response = await client.api.apples.$get()
+      console.log(response)
+      if (response.ok) {
+        const apples = await response.json()
+        setData(apples)
       }
-    ]
-  }
+    }
+
+    fetchApples()
+  }, [])
+
+  if (!data) return
 
   return (
     <div style={{width: '300px'}}>
