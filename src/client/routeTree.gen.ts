@@ -19,6 +19,9 @@ import { Route as rootRoute } from './routes/__root'
 const StaticpiechartwithpartoflegendmissingLazyImport = createFileRoute(
   '/static_pie_chart_with_part_of_legend_missing',
 )()
+const StaticpiechartwithhtmllegendonclickLazyImport = createFileRoute(
+  '/static_pie_chart_with_html_legend_on_click',
+)()
 const StaticpiechartwithhtmllegendLazyImport = createFileRoute(
   '/static_pie_chart_with_html_legend',
 )()
@@ -33,6 +36,16 @@ const StaticpiechartwithpartoflegendmissingLazyRoute =
     getParentRoute: () => rootRoute,
   } as any).lazy(() =>
     import('./routes/static_pie_chart_with_part_of_legend_missing.lazy').then(
+      (d) => d.Route,
+    ),
+  )
+
+const StaticpiechartwithhtmllegendonclickLazyRoute =
+  StaticpiechartwithhtmllegendonclickLazyImport.update({
+    path: '/static_pie_chart_with_html_legend_on_click',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/static_pie_chart_with_html_legend_on_click.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -73,6 +86,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StaticpiechartwithhtmllegendLazyImport
       parentRoute: typeof rootRoute
     }
+    '/static_pie_chart_with_html_legend_on_click': {
+      preLoaderRoute: typeof StaticpiechartwithhtmllegendonclickLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/static_pie_chart_with_part_of_legend_missing': {
       preLoaderRoute: typeof StaticpiechartwithpartoflegendmissingLazyImport
       parentRoute: typeof rootRoute
@@ -86,6 +103,7 @@ export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   ChartLazyRoute,
   StaticpiechartwithhtmllegendLazyRoute,
+  StaticpiechartwithhtmllegendonclickLazyRoute,
   StaticpiechartwithpartoflegendmissingLazyRoute,
 ])
 
