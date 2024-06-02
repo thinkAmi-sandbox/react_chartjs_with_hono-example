@@ -11,3 +11,4 @@
 ## Related Blog (Written in Japanese)
 
 - [Hono + React + Chart.js + TanStack Router + TanStack Query を使って、Hono製APIのレスポンスをPie chartとして表示してみた - メモ的な思考的な](https://thinkami.hatenablog.com/entry/2024/04/27/112457)
+- [React + react-chartjs-2 + Chart.js を使って、デフォルトの Legend の代わりに HTML Legend を表示してみた - メモ的な思考的な](https://thinkami.hatenablog.com/entry/2024/06/02/214140)
